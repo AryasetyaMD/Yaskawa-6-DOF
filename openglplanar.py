@@ -40,7 +40,7 @@ L5 = a5;
 L6 = d6;
 L7 = 0;
 
-x, y = 0.0, 0.0
+x, y, z = 0.0, 0.0, 0.0
 RTD = 180.0 / math.pi
 DTR = math.pi / 180.0
 
@@ -273,7 +273,7 @@ def disp_robot():
 
     # Menuju joint-6
     glTranslatef(0, 0, a5)    
-    glRotatef(rtod(joint6), 0, 0, 1)  
+    glRotatef(rtod(joint6), 0, 1, 0)  
 
     # Gambar link6
     glPushMatrix()   
@@ -308,7 +308,7 @@ def display():
     global translation_x, translation_y, translation_z
     global k
     global websocket
-    global joint1, joint2, x, y
+    global joint1, joint2, joint3, joint4, joint5, joint6, x, y, z
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
     glLoadIdentity()

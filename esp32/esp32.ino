@@ -251,7 +251,7 @@ void handleWeb(void *pvParameters) {
         request->send(400, "text/plain", "Gagal ");
         return;
       }
-      temp = ServoPos(joint4, 45.0, 135.0, 900, 2100);
+      temp = ServoPos(joint4, 0.0, 90.0, 900, 2100);
       ledcWrite(CHN_J4, temp);
       request->send(200, "text/plain", "Berhasil update j4 " + String(joint4));
     }
@@ -267,7 +267,7 @@ void handleWeb(void *pvParameters) {
     }
     if (request->hasParam("j6")) {
       joint6 = request->getParam("j6")->value().toFloat();
-      if (joint6 > 135.0 || joint6 < 45.0) {
+      if (joint6 > 0.0 || joint6 < 0.0) {
         request->send(400, "text/plain", "Gagal ");
         return;
       }
