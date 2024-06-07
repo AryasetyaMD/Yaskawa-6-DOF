@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Praktek Mekatronika 6-DOF</title>
+    <link href="css/gabung.css" rel="stylesheet" >
+    <script src="js/gabung.js" ></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row text-center"><h3>6 DOF Robot Control</h3>
+    <p><strong>Nama</strong>: Muhammad Daffa Aryasetya<br><strong>Tugas</strong>: Tugas Yaskawa 6 DOF</p></div>
+    <div class="row flex-nowrap">
+<div class="card-grid">
+    <div class="card">         
+        <p class="card-header card-title">Perintah</p>
+        <div class="card-body m-3">
+          <div class="input-group d-flex">
+            <label class="col-sm-4 col-form-label text-start" for="j1">Joint1</label>
+            <input type="text" class="col-sm-6 form-control" id="j1" value="0">
+          </div>
+          <div class="input-group d-flex">
+            <label class="col-sm-4 col-form-label text-start" for="j2">Joint2</label>
+            <input type="text" class="col-sm-6 form-control" id="j2" value="0">
+          </div>
+          <div class="input-group d-flex">
+            <label class="col-sm-4 col-form-label text-start" for="j3">Joint3</label>
+            <input type="text" class="col-sm-6 form-control" id="j3" value="0">
+          </div>
+          <div class="input-group d-flex">
+            <label class="col-sm-4 col-form-label text-start" for="j4">Joint4</label>
+            <input type="text" class="col-sm-6 form-control" id="j4" value="0">
+          </div>
+          <div class="input-group d-flex">
+            <label class="col-sm-4 col-form-label text-start" for="j5">Joint5</label>
+            <input type="text" class="col-sm-6 form-control" id="j5" value="0">
+          </div>
+          <div class="input-group d-flex">
+            <label class="col-sm-4 col-form-label text-start" for="j6">Joint6</label>
+            <input type="text" class="col-sm-6 form-control" id="j6" value="0">
+          </div>
+        </div>
+        <div class="card-footer m-3">
+            <span type="button" class="btn btn-primary mt-3 col-3" id="start">Start</span>
+            <span type="button" class="btn btn-danger mt-3 col-3" id="stop">Stop</span>
+            <span type="button" class="btn btn-warning mt-3 col-3" id="clear">Clear Data</span>
+        </div>
+    </div>
+</div>
+   </div>
+    <hr>
+    <div class="row flex-nowrap">
+    <div class="card">         
+        <p class="card-header card-title">Data</p>
+        <div class="card-body m-3">
+          <div class="input-group d-flex" id="data">-
+          </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+</body>
+<script>
+var gateway = `ws://${window.location.hostname}/ws`;
+var websocket;
+window.addEventListener('load', onLoad);
+
+function onLoad(event) {
+    initWebSocket();
+}
+
+function initWebSocket() {
+    console.log('Trying to open a WebSocket connection...');
+    websocket = new WebSocket(gateway);
+    websocket.onopen    = onOpen;
+    websocket.onclose   = onClose;
+    websocket.onmessage = onMessage;
+}
+
+function onOpen(event) {
+    console.log('Connection device opened');
+    websocket.send("config");
+}
+  
+function onClose(event) {
+    console.log('Connection device closed');
+} 
+
+function onMessage(event) {
+    console.log(event.data);
+    $("#data").prepend(event.data+"<br>");
+    var myObj = JSON.parse(event.data);
+}
+
+var datalive = false;
+var periodik = 1000;
+
+// Tunggu 2 detik
+setTimeout(() => {
+    $(document).ready(function () {
+        $('#j1').on('keypress', function(e) {
+            if (e.which == 13) {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/update?j1=' + $('#j1').val(),
+                    dataType: "text",
+                    timeout: 500,
+                    error: function (request, status, error) { },
+                    success: function(data) { }
+                });
+            }
+        });
+        $('#j2').on('keypress', function(e) {
+            if (e.which == 13) {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/update?j2=' + $('#j2').val(),
+                    dataType: "text",
+                    timeout: 500,
+                    error: function (request, status, error) { },
+                    success: function(data) { }
+                });
+            }
+        });
+        $('#j3').on('keypress', function(e) {
+            if (e.which == 13) {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/update?j3=' + $('#j3').val(),
+                    dataType: "text",
+                    timeout: 500,
+                    error: function (request, status, error) { },
+                    success: function(data) { }
+                });
+            }
+        });
+        $('#j4').on('keypress', function(e) {
+            if (e.which == 13) {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/update?j4=' + $('#j4').val(),
+                    dataType: "text",
+                    timeout: 500,
+                    error: function (request, status, error) { },
+                    success: function(data) { }
+                });
+            }
+        });
+        $('#j5').on('keypress', function(e) {
+            if (e.which == 13) {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/update?j5=' + $('#j5').val(),
+                    dataType: "text",
+                    timeout: 500,
+                    error: function (request, status, error) { },
+                    success: function(data) { }
+                });
+            }
+        });
+        $('#j6').on('keypress', function(e) {
+            if (e.which == 13) {
+                $.ajax({
+                    type: 'PUT',
+                    url: '/update?j6=' + $('#j6').val(),
+                    dataType: "text",
+                    timeout: 500,
+                    error: function (request, status, error) { },
+                    success: function(data) { }
+                });
+            }
+        });
+
+        $("#start").on("click", function() {
+            datalive = true;
+            refreshDataSocket();
+        });
+
+        $("#stop").on("click", function() {
+            datalive = false;
+        });
+
+        $("#clear").on("click", function() {
+            $("#data").html("");
+        });
+    });
+}, 3000);
+
+function refreshDataHttp() {
+    $.ajax({
+        type: 'GET',
+        url: '/lastdata', 
+        dataType: "text",
+        timeout: periodik,
+        error: function (request, status, error) { },
+        success: function(data) {
+            $("#data").prepend(data + "<br>");
+        }
+    });
+
+    if (datalive) setTimeout(refreshDataHttp, periodik);
+}
+
+function refreshDataSocket() {
+    websocket.send("states");
+    if (datalive) setTimeout(refreshDataSocket, periodik);
+}
+
+initWebSocket();
+setTimeout(refreshDataSocket, periodik);
+</script>
+</html>
