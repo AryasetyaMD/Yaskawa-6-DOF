@@ -70,7 +70,7 @@ float z;
 
 int Ksisa = 0;
 
-// put function declarations heazare:
+// put function declarations here:
 int myFunction(int, int);
 
 int ServoPos(float pos, float sdtmin, float sdtmax, int pulsamin, int pulsamax) {

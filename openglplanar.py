@@ -273,7 +273,7 @@ def disp_robot():
 
     # Menuju joint-6
     glTranslatef(0, 0, a5)    
-    glRotatef(rtod(joint6), 0, 1, 0)  
+    glRotatef(rtod(joint6), 0, 0, 1)  
 
     # Gambar link6
     glPushMatrix()   
